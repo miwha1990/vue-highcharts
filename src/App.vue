@@ -34,9 +34,9 @@
             align-center
             column
           >
-            <highcharts :options="openData" style="width:100%" ref="highcharts"></highcharts>
+            <highcharts :options="openData" style="width:100%" ref="highcharts1"><span>Loading...</span></highcharts>
             <hr>
-            <highcharts :options="closeData" style="width:100%" ref="highcharts"></highcharts>
+            <highcharts :options="closeData" style="width:100%" ref="highcharts2"><span>Loading...</span></highcharts>
           </v-layout>
         </v-container>
       </v-content>
@@ -48,8 +48,6 @@
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld'
-
 export default {
   name: 'app',
   data: () => ({
@@ -68,6 +66,10 @@ export default {
           text: 'Valve position'
         },
         crosshair: true
+      },
+      loading: {
+        hideDuration: 1000,
+        showDuration: 1000
       },
       yAxis: {
         min: 0,
@@ -101,6 +103,10 @@ export default {
         },
         crosshair: true
       },
+      loading: {
+        hideDuration: 1000,
+        showDuration: 1000
+      },
       yAxis: {
         min: 0,
         title: {
@@ -123,14 +129,12 @@ export default {
   props: {
     source: String
   },
-  components: {
-    HelloWorld
-  },
   methods: {
     fetchData(url) {
       return fetch(url).then(res => res.json())
     },
     sortData(data) {
+
       const avTorqueClosed = {name: 'Average Torque', data: []};
       const lastTorqueClosed = {name: 'Last Torque', data: []};
       const avTorqueOpen = {name: 'Average Torque', data: []};
@@ -152,10 +156,13 @@ export default {
       lastTorqueOpen.data.sort((a, b) => a.x.toString().localeCompare(b.x.toString()));
       this.closeData.series = closed;
       this.openData.series = opened;
-
+      this.$refs.highcharts1.chart.hideLoading();
+      this.$refs.highcharts2.chart.hideLoading();
     }
   },
-  created() {
+  mounted() {
+    this.$refs.highcharts1.chart.showLoading();
+    this.$refs.highcharts2.chart.showLoading();
     this.fetchData(this.fetchDataUrl).then(res => this.sortData(res))
   }
 }

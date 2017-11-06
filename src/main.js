@@ -3,8 +3,8 @@
 import Vue from 'vue'
 import Vuetify from 'vuetify'
 import VueHighcharts from 'vue-highcharts'
-import Highcharts from 'highcharts/highstock.js';
-import App from './App'
+import Highcharts from '../node_modules/highcharts/highstock.js';
+import App from './App.vue'
 
 Vue.use(Vuetify)
 Vue.use(VueHighcharts, {Highcharts})

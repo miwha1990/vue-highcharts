@@ -10,6 +10,7 @@
     "build": "node build/build.js"
   },
   "dependencies": {
+    "highcharts": "^6.0.2",
     "vue": "^2.5.2",
     "vue-highcharts": "0.0.10",
     "vuetify": "^0.16.9"
