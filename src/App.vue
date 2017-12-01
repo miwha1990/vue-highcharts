@@ -1,49 +1,44 @@
 <template>
   <v-app id="inspire">
     <v-navigation-drawer
-      persistent
       v-model="drawer"
-      enable-resize-watcher
       app
     >
       <v-card-media src="/static/plant.jpg" height="200px">
       </v-card-media>
-      <v-subheader></v-subheader>
-      <v-list-tile>
-        <v-list-tile-content>
-          <v-list-tile-sub-title v-html="'Terminal name'"></v-list-tile-sub-title>
-          <v-list-tile-title v-html="'WEST'"></v-list-tile-title>
-        </v-list-tile-content>
-      </v-list-tile>
-      <v-list-tile>
-        <v-list-tile-content>
-          <v-list-tile-sub-title v-html="'Country code'"></v-list-tile-sub-title>
-          <v-list-tile-title v-html="'NLD'"></v-list-tile-title>
-        </v-list-tile-content>
-      </v-list-tile>
+      <v-list two-line>
+        <v-list-tile>
+          <v-list-tile-content>
+            <v-list-tile-title v-html="'Terminal name'"></v-list-tile-title>
+            <v-list-tile-sub-title v-html="'WEST'"></v-list-tile-sub-title>
+          </v-list-tile-content>
+        </v-list-tile>
+        <v-list-tile>
+          <v-list-tile-content>
+            <v-list-tile-title v-html="'Country code'"></v-list-tile-title>
+            <v-list-tile-sub-title v-html="'NLD'"></v-list-tile-sub-title>
+          </v-list-tile-content>
+        </v-list-tile>
+      </v-list>
     </v-navigation-drawer>
     <v-toolbar color="indigo" dark fixed app>
       <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
       <v-toolbar-title>Terminal overview</v-toolbar-title>
     </v-toolbar>
-    <main>
-      <v-content>
-        <v-container fluid fill-height>
-          <v-layout
-            justify-center
-            align-center
-            column
-          >
-            <highcharts :options="openData" style="width:100%" ref="highcharts1"><span>Loading...</span></highcharts>
-            <hr>
-            <highcharts :options="closeData" style="width:100%" ref="highcharts2"><span>Loading...</span></highcharts>
-          </v-layout>
-        </v-container>
-      </v-content>
-    </main>
-    <v-footer color="indigo" app>
-      <span class="white--text">&copy; 2017</span>
-    </v-footer>
+
+    <v-content>
+      <v-container fluid fill-height>
+        <v-layout
+          justify-center
+          align-center
+          column
+        >
+          <highcharts :options="openData" style="width:100%" ref="highcharts1"><span>Loading...</span></highcharts>
+          <hr>
+          <highcharts :options="closeData" style="width:100%" ref="highcharts2"><span>Loading...</span></highcharts>
+        </v-layout>
+      </v-container>
+    </v-content>
   </v-app>
 </template>
 
@@ -177,5 +172,9 @@ export default {
     text-align: center;
     color: #2c3e50;
     margin-top: 60px;
+  }
+  aside {
+    position:absolute;
+    border-right: 1px solid #ddd;
   }
 </style>
